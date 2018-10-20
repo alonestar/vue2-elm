@@ -5,6 +5,10 @@
         </head-top>
         <nav class="city_nav">
             <div class="city_tip">
+                <span>{{$t("message.title2", {brands: '你猜'})}}</span>
+                <button @click='langToggle'>en/中</button>
+            </div>
+            <div class="city_tip">
                 <span>当前定位城市：</span>
                 <span>定位不准时，请在城市列表中选择</span>
             </div>
@@ -13,14 +17,14 @@
                 <svg class="arrow_right">
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
                 </svg>
-            </router-link>  
+            </router-link>
         </nav>
         <section id="hot_city_container">
             <h4 class="city_title">热门城市</h4>
             <ul class="citylistul clear">
                 <router-link  tag="li" v-for="item in hotcity" :to="'/city/' + item.id" :key="item.id">
                     {{item.name}}
-                </router-link>  
+                </router-link>
             </ul>
         </section>
         <section class="group_city_container">
@@ -32,7 +36,7 @@
                     <ul class="groupcity_name_container citylistul clear">
                         <router-link  tag="li" v-for="item in value" :to="'/city/' + item.id" :key="item.id" class="ellipsis">
                             {{item.name}}
-                        </router-link>  
+                        </router-link>
                     </ul>
                 </li>
             </ul>
@@ -94,6 +98,14 @@ export default {
         //点击图标刷新页面
         reload(){
             window.location.reload();
+        },
+        langToggle(){
+            console.log(this.$i18n.locale)
+            if(this.$i18n.locale == 'zh'){
+              this.$i18n.locale = 'en';
+            }else{
+              this.$i18n.locale = 'zh';
+            }
         }
     },
 }
@@ -173,7 +185,7 @@ export default {
             @include sc(0.475rem, #999);
         }
     }
-    
+
     .letter_classify_li{
         margin-bottom: 0.4rem;
         background-color: #fff;

@@ -5,6 +5,8 @@ import store from './store/'
 import {routerMode} from './config/env'
 import './config/rem'
 import FastClick from 'fastclick'
+import VueI18n from 'vue-i18n'
+import {getCookie} from './utils/cookie'
 
 if ('addEventListener' in document) {
     document.addEventListener('DOMContentLoaded', function() {
@@ -12,12 +14,21 @@ if ('addEventListener' in document) {
     }, false);
 }
 
+Vue.use(VueI18n)
+const i18n = new VueI18n({
+  locale: getCookie('PLAY_LANG','en'), // 语言标识
+  messages: {
+    'zh': require('./language/zh'),
+    'en': require('./language/en')
+  }
+})
+
 Vue.use(VueRouter)
 const router = new VueRouter({
 	routes,
 	mode: routerMode,
 	strict: process.env.NODE_ENV !== 'production',
-	scrollBehavior (to, from, savedPosition) {
+	scrollBehavior (to, from, savedPosition) {当前
 	    if (savedPosition) {
 		    return savedPosition
 		} else {
@@ -32,5 +43,6 @@ const router = new VueRouter({
 new Vue({
 	router,
 	store,
+  i18n,
 }).$mount('#app')
 
